@@ -2,30 +2,30 @@
 #include <HCSR.h>
 #include <TF.h>
 
-uint8_t echo[4] = {5, 19, 33, 32}; //Trasero, Izq, Centro, Der
+uint8_t echo[4] = {5, 19, 33, 32}; //Back, Left, Center, Right
 uint8_t trig = 26;
 
-ulong current_time, prev_time; //pull in de tiempo
+ulong current_time, prev_time;
 uint16_t dt_ms = 20;
 float dist_T, dist_I, dist_C,dist_D   = 0.0;
 
-//Pasabajas
+//Low-pass filter
 float a[4] = {1.0, -1.73472577, 0.7660066, 0};
 float b[4] = {0.00782021, 0.01564042, 0.00782021, 0};
-//Crear objetos de Ultra
+//Ultrasonic objects
 HCSR OwO_T, OwO_I, OwO_C, OwO_D;
 
-//Definir interrupciones
-void IRAM_ATTR ISR_OwO_T() { //va en el objeto
+//Attach interruptions
+void IRAM_ATTR ISR_OwO_T() {
    OwO_T.ISR();
 }
-void IRAM_ATTR ISR_OwO_I() { //va en el objeto
+void IRAM_ATTR ISR_OwO_I() {
    OwO_I.ISR();
 }
-void IRAM_ATTR ISR_OwO_C() { //va en el objeto
+void IRAM_ATTR ISR_OwO_C() {
    OwO_C.ISR();
 }
-void IRAM_ATTR ISR_OwO_D() { //va en el objeto
+void IRAM_ATTR ISR_OwO_D() {
    OwO_D.ISR();
 }
 
