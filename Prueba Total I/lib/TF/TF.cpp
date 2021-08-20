@@ -12,11 +12,11 @@ TF::~TF()
 
 void TF::setup(float a[], float b[], float x) 
 {
-    //Guardando los datos
+    //Saving data
     _a = a;
     _b = b;
     _x = x;
-    //Valores de X y Y anteriores
+    //Past values
     x_3 = 0.0;
     x_2 = 0.0;
     x_1 = 0.0;
