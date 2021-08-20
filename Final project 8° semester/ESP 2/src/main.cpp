@@ -3,11 +3,11 @@
 #include <DHT.h>
 
 
-//Tira frontal de pines
+//Front LED strip
 uint8_t pin1 = 12;//33 MA1
 uint8_t channel1 = 0;
 PWM LED1;
-//Sensor de luz
+//Light sensor
 uint8_t pinlight = 32;
 
 //33 DHT11 ,MB1 servo, MA1 luz delantera, 32 sensor de luz
@@ -21,7 +21,7 @@ float hum = 0.0;
 float temp_1 = 0.0;
 float hum_1 = 0.0;
 
-//Servo
+//Servomotor for the whipers
 uint8_t pinServo = 14;
 int servo_channelS = 1;
 int res = 10;
