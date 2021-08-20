@@ -24,14 +24,4 @@ public:
     float apply(float ref, float sens_read);
     float applywLim(float ref, float sens_read, float lim_inf, float lim_sup);
 };
-/*
-PID::PID()
-{
-}
-
-PID::~PID()
-{
-}
-*/
-
 #endif // __PID_H__
