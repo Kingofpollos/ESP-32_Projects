@@ -3,9 +3,6 @@
 
 class TF
 {
-    /*
-    Solo acepta hasta 3er orden
-    */
 public:
     TF( );
     ~TF();
