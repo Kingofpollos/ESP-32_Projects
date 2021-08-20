@@ -9,20 +9,20 @@
 #include <TF.h>
 #include <PID.h>
 
-//Servo
+//Servomotor
 int pin_servo = 26; //b1
 int servo_channelS = 0;
 int res = 10;
 int frec = 50;
-PWM servo; // opera entre 5 y 10% donde 5% es 0° y 10% es 180°
+PWM servo; //Operates between 5 and 10%, where 5% is 0°, and 10% is 180°
 
-//Motor grande
+//Main motor
 int pin_motor = 23; //b6
 int servo_channelM = 1;
 PWM motor;
 
 //Ultrasonicos
-uint8_t echo[4] = {5, 19, 33, 32}; //Trasero, Izq, Centro, Der (b7, b1, b2, b3)
+uint8_t echo[4] = {5, 19, 33, 32}; //Back, Left, Center, Right (b7, b1, b2, b3)
 uint8_t trig = 25; //b2
 float dist_T, dist_I, dist_C,dist_D   = 0.0;
 HCSR OwO_T, OwO_I, OwO_C, OwO_D;
@@ -30,19 +30,19 @@ PWM OWOtrig;
 int channelOWO = 2;
 int frecOWO = 40;
 
-//Comunicaciones
+//Comunications
 String senal;
 const int leng = 32;
 char senalc[leng];
 BluetoothSerial SerialBT;
-//Control motor, servo, leftled, rightled, tokyo, manual o auto, vel estable
-float control_input[7];//Tamaño de el array resultante
+//Control motor, servo, leftled, rightled, tokyo, manual or auto, vel estable
+float control_input[7];//Size of the resultant array
 
 //pull in de tiempo
 ulong current_time, prev_time; 
 uint16_t dt_ms = 20; //20
 
-//Inercial
+//Inertial sensor
 MPU6050 mpu6050(Wire);
 float acex = 0.0;
 
@@ -53,17 +53,13 @@ uint8_t PinTOKYO = 14; //MB1
 
 //Encoder
 Encoder Encod;
-int A=4; //Parte de abajo de la esp
-int B=13;//Parte de abajo de la esp
+int A=4; 
+int B=13;
 float Ang=3.6;
 float readEncod = 0.0;
 
-//Filtros
+//Filters
 TF FiltEncod;
-/*
-float a[4] = {4.0,0,0,0};
-float b[4] = {1.0,1.0,1.0,1.0};
-*/
 float a[4] = {1.0, -1.73472577, 0.7660066, 0};
 float b[4] = {0.00782021, 0.01564042, 0.00782021, 0};
 float readEncodFilt = 0.0;
@@ -77,7 +73,7 @@ float Ki = 85.7561;
 float Kd = 0.5;
 bool PIDflag = false;
 
-//Definir interrupciones
+//Define interruptions
 void IRAM_ATTR ISR_OwO_T() { //va en el objeto
    OwO_T.ISR();
 }
@@ -160,7 +156,7 @@ void loop() {
       if (isnan(readEncodFilt)){readEncodFilt = 0.0f;}
       if (control_input[6] == 1 && PIDflag == false){PID_ref = readEncodFilt;PIDflag = true;}
       else if (control_input[6] == 1 && PIDflag == false && control_input[5] == 1)
-      {//Se activa si está en modo autom
+      {//Activates if it's in automatic control
         PID_ref = 4.085; //(1 km/hr = 4.085)
         PIDflag = true;
       }
