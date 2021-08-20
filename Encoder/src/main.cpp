@@ -32,7 +32,7 @@ float a[4] = {4.0,0,0,0};
 float b[4] = {1.0,1.0,1.0,1.0};
 float readEncodFilt;
 
-//Comunication
+//ComunicationS
 String senal;
 const int leng = 32;
 char senalc[leng];
