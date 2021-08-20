@@ -9,8 +9,8 @@ class TF
 public:
     TF( );
     ~TF();
-    void setup(float a[], float b[], float x);//Función pa meterle valores
-    float getValue(float x);//Funcion para obtener valores
+    void setup(float a[], float b[], float x);
+    float getValue(float x);//Function to obtain values
 
 private:
     /* data */
