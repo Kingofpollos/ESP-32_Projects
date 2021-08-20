@@ -5,12 +5,11 @@
 class HCSR
 {
 private:
-    ulong t_1 = 0; //va en el objeto
-    ulong t_2 = 0; //va en el objeto
-    //int dt_a = 0;
-    int dt_p = 0; //va en el objeto
-    float dist = 0.0; //va en el objeto
-    bool prev_flag = false; //va en el objeto
+    ulong t_1 = 0; 
+    ulong t_2 = 0; 
+    int dt_p = 0; 
+    float dist = 0.0; 
+    bool prev_flag = false; 
     uint8_t _trig;
     uint8_t _echo;
 public:
@@ -22,16 +21,5 @@ public:
     float Dist();
     int dt_a = 0;
 };
-
-/*
-HCSR::HCSR()
-{
-}
-
-HCSR::~HCSR()
-{
-}
-*/
-
 
 #endif // __HCSR_H__
