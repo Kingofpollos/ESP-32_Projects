@@ -19,14 +19,5 @@ public:
     float getAngSpeed();
     float getRevSpeed();
 };
-/*
-Encoder::Encoder()
-{
-}
-
-Encoder::~Encoder()
-{
-}
-*/
 
 #endif // __ENCODER_H__
