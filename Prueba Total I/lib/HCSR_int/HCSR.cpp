@@ -15,9 +15,8 @@ void HCSR::setup(uint8_t trig, uint8_t echo)
 {
     _trig = trig;
     _echo = echo;
-    pinMode(_trig, OUTPUT);//va en el objeto
-    pinMode(_echo, INPUT);//va en el objeto
-    //attachInterrupt(echo, ISR, CHANGE); Es necesario crear esto en el script principal
+    pinMode(_trig, OUTPUT);
+    pinMode(_echo, INPUT);
 }
 
 void IRAM_ATTR HCSR::ISR() 
@@ -35,9 +34,9 @@ void IRAM_ATTR HCSR::ISR()
    }
 }
 
-void HCSR::Trigger() //Manda señal al trigger (toma 12ms)
+void HCSR::Trigger() //Sends trigger signal (Takes 12ms)
 {
-  //Manda señal al trigger (toma 12ms)
+  //Yhis can be substituted with a PWM signal of 40 Hz and a duty of 40%
   digitalWrite(_trig, LOW);
   delayMicroseconds(2);
   digitalWrite(_trig, HIGH);
