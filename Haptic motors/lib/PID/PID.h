@@ -23,21 +23,13 @@ public:
     PID(/* args */);
     ~PID();
     void setup(float Kp, float Ki, float Kd, uint16_t T);
-    float apply(float ref, float sens_read);
-    float applywLim(float ref, float sens_read, float lim_inf, float lim_sup);
-    float applywLims(float ref, float sens_read, float lim_inf, float lim_sup, float err_a = 0.0);
-    float applyHapticwLimsM(float pos_m, float pos_f, float lim_inf, float lim_sup, float err_a = 0.0);
+    float apply(float ref, float sens_read); //Normal PID controller
+    float applywLim(float ref, float sens_read, float lim_inf, float lim_sup); //PID controller that operates in the desired limits
+    float applywLims(float ref, float sens_read, float lim_inf, float lim_sup, float err_a = 0.0); //PID controller that operates in the desired limits and stops when the falue is in the acceptable error
+    float applyHapticwLimsM(float pos_m, float pos_f, float lim_inf, float lim_sup, float err_a = 0.0);//Controller used to control motors used to haptic aplication
     float applyHapticwLimsF(float pos_m, float pos_f, float lim_inf, float lim_sup, float err_a = 0.0);
     void reset();
 };
-/*
-PID::PID()
-{
-}
 
-PID::~PID()
-{
-}
-*/
 
 #endif // __PID_H__
