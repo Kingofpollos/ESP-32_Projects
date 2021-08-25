@@ -22,11 +22,14 @@ void IRAM_ATTR ISR_encod()
 
 void setup()
 {
-  SerialBT.begin("Bbto es pvto");
+  SerialBT.begin("ESP-32");
   Serial.begin(115200);
   servo.encoder.setup(19, 5, 979.62f, 200);
   servo.driver.setup(14, 27, 0, 1);
   servo.encoder.filt.setup(a, b, 0);
+  /*
+  With the codes below we can choose between control the speed or the position of the motor
+  */
   //servo.setControlMode(SPEED);
   servo.setControlMode(POSITION);
 
@@ -37,6 +40,9 @@ void setup()
 
 void loop()
 {
+  /*
+  To control this motor is required a BT connection, and the message sent is a float that is the reference
+  */
   current_time = millis();
   if (current_time - prev_time > dt_ms)
   {
@@ -49,13 +55,14 @@ void loop()
       SerialBT.readStringUntil('\n').toCharArray(string_in, sizeof(string_in));
       parseString(string_in, ",", data_in);
       servo.setControlMode(data_in[0]);
-      duty = data_in[1];
+      duty = data_in[1]; //duty is the reference sent by the user
     }
 
     float control_output = servo.calculateControlOutput(duty, dt_ms);
     servo.driver.setSpeed(control_output);
 
-    sprintf(message_out, "%.2f,%.2f,%.2f,%.2f\r\n", duty, servo.encoder.getAngle(), servo.encoder.getSpeed(), control_output);
+    sprintf(message_out, "%.2f,%.2f,%.2f,%.2f\r\n", duty, servo.encoder.getAngle(), servo.encoder.getSpeed(), control_output);//Return the value sent to the controller,
+    //The position in °, the speed in °/sec and the output of the control
     SerialBT.print(message_out);
     Serial.print(message_out);
   }
