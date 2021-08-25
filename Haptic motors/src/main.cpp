@@ -28,14 +28,14 @@ void IRAM_ATTR ISR_encod2()
 
 void setup()
 {
-  SerialBT.begin("Bbto es pvto");
+  SerialBT.begin("ESP-32");
   Serial.begin(115200);
   servo.encoder.setup(19, 5, 2248.86f, 200);
-  servo2.encoder.setup(25, 26, 1632.67f, 200);//segundo servo
+  servo2.encoder.setup(25, 26, 1632.67f, 200);//Second servomotor
   servo.driver.setup(14, 27, 0, 1, 0);
-  servo2.driver.setup(32, 34, 2, 3,0);//Segundo servo
+  servo2.driver.setup(32, 34, 2, 3,0);//Second servomotor
   servo.encoder.filt.setup(a, b, 0);
-  servo2.encoder.filt.setup(a, b, 0);//Segundo servo
+  servo2.encoder.filt.setup(a, b, 0);//Second servomotor
   //servo.setControlMode(SPEED);
   servo.setControlMode(HAPTICM);
   servo2.setControlMode(HAPTICM);
@@ -54,27 +54,12 @@ void loop()
   {
     prev_time = current_time;
     char message_out[64];
-    /*
-    if (SerialBT.available())
-    {
-      float data_in[6];
-      char string_in[64];
-      SerialBT.readStringUntil('\n').toCharArray(string_in, sizeof(string_in));
-      parseString(string_in, ",", data_in);
-      servo.setControlMode(data_in[0]);
-      duty = data_in[1];
-    }*/
 
     float control_output = servo.calculateControlOutput(servo2.encoder.getAngle(), dt_ms/1000);
     servo.driver.setSpeed(control_output);
 
     float control_output2 = servo2.calculateControlOutput(servo.encoder.getAngle(), dt_ms/1000);
     servo2.driver.setSpeed(control_output2);
-/*
-    if (abs(servo.encoder.getAngle() - servo2.encoder.getAngle()) > 100)
-    {
-      servo2.driver.setStop(0);
-    }*/
     
     sprintf(message_out, "%.2f,%.2f,        %.2f,%.2f,        %.2f,%.2f\r\n", servo2.encoder.getAngle(), servo.encoder.getAngle(), servo.encoder.getSpeed(), servo2.encoder.getSpeed(), control_output, control_output2);
     SerialBT.print(message_out);
